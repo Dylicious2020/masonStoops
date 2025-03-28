@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/masonStoops/static/css/main.16d77c2b.css",
-    "main.js": "/masonStoops/static/js/main.9220f7eb.js",
+    "main.js": "/masonStoops/static/js/main.b125ba78.js",
     "static/js/453.c3f624c7.chunk.js": "/masonStoops/static/js/453.c3f624c7.chunk.js",
     "static/media/weirdTeleMason.png": "/masonStoops/static/media/weirdTeleMason.dcb310a4e93b06011313.png",
     "static/media/acousticMason.png": "/masonStoops/static/media/acousticMason.32185dc8692e7417aae7.png",
@@ -13,11 +13,11 @@
     "static/media/gumby.png": "/masonStoops/static/media/gumby.e4ecac782cfc81fe42c1.png",
     "index.html": "/masonStoops/index.html",
     "main.16d77c2b.css.map": "/masonStoops/static/css/main.16d77c2b.css.map",
-    "main.9220f7eb.js.map": "/masonStoops/static/js/main.9220f7eb.js.map",
+    "main.b125ba78.js.map": "/masonStoops/static/js/main.b125ba78.js.map",
     "453.c3f624c7.chunk.js.map": "/masonStoops/static/js/453.c3f624c7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.16d77c2b.css",
-    "static/js/main.9220f7eb.js"
+    "static/js/main.b125ba78.js"
   ]
 }
