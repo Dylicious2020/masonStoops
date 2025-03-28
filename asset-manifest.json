@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/masonStoops/static/css/main.16d77c2b.css",
+    "main.js": "/masonStoops/static/js/main.df95c5b9.js",
+    "static/js/453.c3f624c7.chunk.js": "/masonStoops/static/js/453.c3f624c7.chunk.js",
+    "static/media/weirdTeleMason.png": "/masonStoops/static/media/weirdTeleMason.dcb310a4e93b06011313.png",
+    "static/media/acousticMason.png": "/masonStoops/static/media/acousticMason.32185dc8692e7417aae7.png",
+    "static/media/masonAndTaylor.png": "/masonStoops/static/media/masonAndTaylor.d8dd0818a7e25eeef1b6.png",
+    "static/media/DSC_0147.jpg": "/masonStoops/static/media/DSC_0147.59d45556cd117827ed69.jpg",
+    "static/media/teleMason.jpeg": "/masonStoops/static/media/teleMason.3b1097b7ef280b415396.jpeg",
+    "static/media/maxresdefault.jpg": "/masonStoops/static/media/maxresdefault.a251b7e55e1984bcfa03.jpg",
+    "static/media/masonstoops.png": "/masonStoops/static/media/masonstoops.54de5b9f2373e000f2e4.png",
+    "static/media/gumby.png": "/masonStoops/static/media/gumby.e4ecac782cfc81fe42c1.png",
+    "index.html": "/masonStoops/index.html",
+    "main.16d77c2b.css.map": "/masonStoops/static/css/main.16d77c2b.css.map",
+    "main.df95c5b9.js.map": "/masonStoops/static/js/main.df95c5b9.js.map",
+    "453.c3f624c7.chunk.js.map": "/masonStoops/static/js/453.c3f624c7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16d77c2b.css",
+    "static/js/main.df95c5b9.js"
+  ]
+}
