@@ -30,7 +30,7 @@ function App() {
       label: 'Capitol Records', 
       year: 2021, 
       spotify: 'https://open.spotify.com/embed/track/4yyHCYD1ZmeIXEEbvLjCqh?utm_source=generator&theme=0',
-      appleMusic: ''
+      appleMusic: 'https://embed.music.apple.com/us/album/all-you-need-is-love-single/1590949989'
     },
     {
       id: 2, 
