@@ -68,6 +68,12 @@ h6 {
 h1 {
   color: #f6ecd6;
   justify-self: center;
+  padding: 5px;
+}
+
+h1:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .contactContainer {
@@ -130,6 +136,24 @@ p {
   
 }
 
+.menuXContainer {
+  margin-left: 84%;
+  width: 15%;
+  border: 2px solid #282224;
+  justify-items: center;
+  border-radius: 10px;
+  position: absolute;
+  
+}
+
+.spotify:hover {
+  text-decoration: underline;
+}
+
+.appleMusic:hover {
+  text-decoration: underline;
+}
+
 .subContainer {
   width: 55%;
   margin-left: 15%;
@@ -175,17 +199,19 @@ p {
 }
 
 .streamingContainer {
-  margin-left: 10%;
-  width: 40%;
-  /* border: 2px solid #f6ecd6; */
-  display: inline-block; 
-  justify-items: center;
+  margin-left: 84%;
+  margin-top: 300px;
+  width: 15%;
+  border: 2px solid #f6ecd6;
+  border-radius: 10px;
+  /* display: inline-block;  */
+  /* justify-items: center; */
 }
 
 .creditCard {
   border: 2px solid #f6ecd6;
   border-radius: 10%;
-  width: 40%;
+  width: 80%;
   margin-left: 10%;
   margin-top: 2%;
   color: #f6ecd6;
@@ -215,7 +241,7 @@ select {
   color: #f6ecd6;
   padding: 5px;
   cursor: pointer;
-  margin-left: 3%;
+  /* margin-left: 3%; */
   margin-top: 5%;
   width: 35%;
 }
@@ -241,6 +267,40 @@ select {
 
 .image-gallery {
   width: 100%;
+}
+
+.sidebar {
+  height: 100%;
+  width: 100%;
+  left: -100%;
+  top: 0%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-color: #f6ecd6;
+  opacity: 100%;
+  z-index: 10;
+  transition: left 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.thlContainer {
+  z-index: 50;
+}
+
+.x1 {
+  transform: rotate(45deg);
+}
+
+.x3 {
+  transform: rotate(-45deg);
+  
 }
 
 

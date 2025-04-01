@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import {CSSTransition} from 'react-transition-group';
 import masonstoops from './assets/masonstoops.png';
 //import mason from './assets/mason.png';
 import gumby from './assets/gumby.png';
@@ -8,7 +9,6 @@ import maxresdefault from './assets/maxresdefault.jpg';
 import teleMason from './assets/teleMason.jpeg';
 import weirdTeleMason from './assets/weirdTeleMason.png';
 import DSC_0147 from './assets/DSC_0147.jpg';
-
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import './App.css';
@@ -20,6 +20,31 @@ function App() {
   const [spotifyUnderline, setSpotifyUnderline] = useState('underline');
   const [appleMusicUnderline, setAppleMusicUnderline] = useState('none');
   const [tidalUnderline, setTidalUnderline] = useState('none');
+  const [screenSize, setScreenSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
+  const [visibility, setVisibility] = useState('visible');
+  const [optionHeight, setOptionHeight] = useState('auto');
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+    
+  }, []);
+
+
+
+
 
   const credits = 
   [
@@ -250,7 +275,7 @@ function App() {
     return (
       <div className='videoCard' key={v.id}>
         <h2>{v.title}</h2>
-        <iframe style={{borderRadius: '10px'}} width='560' height="315" src={v.link} title={v.id} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe style={{borderRadius: '10px', width: '100%'}} width='560' height="315" src={v.link} title={v.id} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     )
   })
@@ -262,6 +287,7 @@ function App() {
   const handleClick = (event) => {
     const htmlContent = event.target.innerHTML.toLowerCase();
     setIsPressed(htmlContent);  
+    setSidebarIsOpen(false);
   };
 
   function goHome() {
@@ -295,7 +321,7 @@ function App() {
     }
   }, [streamingService]); 
 
-  
+
 
   function Home() {
     return (
@@ -311,8 +337,9 @@ function App() {
       <div className='subContainer'>
           <h6>PRODUCT OF ORANGE COUNTY CAL., SESSION AND TOURING GUITARIST</h6>
         </div>
-        <div className='optionContainer'>
-          <h3 style={{textDecoration: 'underline'}} onClick={handleClick}>HOME</h3> 
+        <div style={{height: optionHeight}} className='optionContainer'>
+          <div>
+          <h3 style={{textDecoration: 'underline', visibility: visibility}} onClick={handleClick}>HOME</h3> 
           <h3 onClick={handleClick}>ABOUT</h3> 
           <h3 onClick={handleClick}>CREDITS</h3>
           <h3 onClick={handleClick}>VIDEOS</h3>
@@ -326,11 +353,69 @@ function App() {
           </div>
           </a>
         </div>
+        </div>
       </div>
       <div className='bodyContainer'>
         <div className='galleryContainer'>
           <ImageGallery autoPlay={true} thumbnailPosition='right'  slideInterval={5000} items={photos}/>
           </div>
+      </div>
+    </div>
+    )
+  }
+  function HomeMobile() {
+    return (
+
+      <div className='container'>
+      <div className='headerContainer'>
+      <div className='line1'></div>
+      <img src={masonstoops} className='masonStoops' alt='Mason Stoops' onClick={goHome}/>
+      <div className='line2'></div>
+      <div className='skewedCircle'>
+        <img src={gumby} className='gumby' alt='gumby'/>
+      </div>
+      <div className='line3'></div>
+      <div className='subContainer'>
+          <h6>PRODUCT OF ORANGE COUNTY CAL., SESSION AND TOURING GUITARIST</h6>
+        </div>
+        
+        <div style={{height: '70px'}} className='optionContainer'>
+          
+        <div style={{marginTop: '22px', cursor: 'pointer'}} className='thlContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl1'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl2'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl3'></div>
+        </div>
+        </div>
+      </div>
+      <div className='bodyContainer'>
+        <div className='galleryContainer'>
+          <ImageGallery autoPlay={true} thumbnailPosition='right'  slideInterval={5000} items={photos}/>
+          </div>
+          <div className={`sidebar ${sidebarIsOpen ? 'open' : ''}`}>
+          <div style={{height: '70px', marginLeft: '84%', marginTop: '-445px'}} className='menuXContainer'>
+          <div style={{marginTop: '33px', cursor: 'pointer'}} className='xContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '10px 0'}} className='x1'></div>
+          {/* <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '6px 0'}} className='thl2'></div> */}
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '-15px 0'}} className='x3'></div>
+        </div>
+        </div>
+        <div style={{width: '100%', justifyItems: 'center'}}>
+          <h1 style={{textDecoration: 'underline', color: '#282224'}} onClick={handleClick}>HOME</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>ABOUT</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CREDITS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>VIDEOS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CONTACT</h1>
+          <a href='https://www.instagram.com/masonstoops/'>
+          <div className='instaLogoContainer'>
+            <div style={{border: '2px solid #282224'}}  className='instaLogoOuter'>
+              <div style={{border: '2px solid #282224', marginLeft: '65%', marginTop: '5%'}}  className='instaLogoDot'></div>
+              <div style={{border: '2px solid #282224', marginTop: '-5%'}}  className='instaLogoInner'></div>
+            </div>
+          </div>
+          </a>
+          </div>
+        </div>
       </div>
     </div>
     )
@@ -374,6 +459,63 @@ function App() {
     </div>
     )
   }
+  function AboutMobile() {
+    return (
+
+      <div className='container'>
+      <div className='headerContainer'>
+      <div className='line1'></div>
+      <img src={masonstoops} className='masonStoops' alt='Mason Stoops' onClick={goHome}/>
+      <div className='line2'></div>
+      <div className='skewedCircle'>
+        <img src={gumby} className='gumby' alt='gumby'/>
+      </div>
+      <div className='line3'></div>
+      <div className='subContainer'>
+          <h6>PRODUCT OF ORANGE COUNTY CAL., SESSION AND TOURING GUITARIST</h6>
+        </div>
+        
+        <div style={{height: '70px'}} className='optionContainer'>
+          
+        <div style={{marginTop: '22px', cursor: 'pointer'}} className='thlContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl1'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl2'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl3'></div>
+        </div>
+        </div>
+      </div>
+      <div className='bodyContainer'>
+      <div className='bioContainer'>
+          <p>Mason Stoops is an LA-based session and touring guitarist known for his thorough knowledge of historical and contemporary instruments and effects. He's much more than a gear aficionado though – Mason is a fiercely talented player in his own right. He's a staple in the Los Angeles music scene and has worked with a wide array of leading artists ranging from Katy Perry to Jackson Browne.</p>
+          </div>
+          <div className={`sidebar ${sidebarIsOpen ? 'open' : ''}`}>
+          <div style={{height: '70px', marginLeft: '84%', marginTop: '-445px'}} className='menuXContainer'>
+          <div style={{marginTop: '33px', cursor: 'pointer'}} className='xContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '10px 0'}} className='x1'></div>
+          {/* <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '6px 0'}} className='thl2'></div> */}
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '-15px 0'}} className='x3'></div>
+        </div>
+        </div>
+        <div style={{width: '100%', justifyItems: 'center'}}>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>HOME</h1> 
+          <h1 style={{textDecoration: 'underline', color: '#282224'}} onClick={handleClick}>ABOUT</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CREDITS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>VIDEOS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CONTACT</h1>
+          <a href='https://www.instagram.com/masonstoops/'>
+          <div className='instaLogoContainer'>
+            <div style={{border: '2px solid #282224'}}  className='instaLogoOuter'>
+              <div style={{border: '2px solid #282224', marginLeft: '65%', marginTop: '5%'}}  className='instaLogoDot'></div>
+              <div style={{border: '2px solid #282224', marginTop: '-5%'}}  className='instaLogoInner'></div>
+            </div>
+          </div>
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    )
+  }
   function Credits() {
     return (
       <div className='container'>
@@ -403,13 +545,13 @@ function App() {
           </div>
           </a>
         </div>
-      </div>
-      <div className='bodyContainer'>
         <div className='streamingContainer'>
-        <div className='spotify' onClick={handleStreamingService}><h4 style={{textDecoration: spotifyUnderline}}>Spotify</h4></div> 
-        <div className='appleMusic' onClick={handleStreamingService}><h4 style={{textDecoration: appleMusicUnderline}}>Apple Music</h4></div>
-        <div className='tidal' onClick={handleStreamingService}><h4 style={{textDecoration: tidalUnderline}}>Tidal</h4></div>
+        <div className='spotify' onClick={handleStreamingService}><h4 style={{textDecoration: spotifyUnderline, justifySelf: 'center'}}>Spotify</h4></div> 
+        <div className='appleMusic' onClick={handleStreamingService}><h4 style={{textDecoration: appleMusicUnderline, justifySelf: 'center'}}>Apple Music</h4></div>
+        <div className='tidal' onClick={handleStreamingService}><h4 style={{textDecoration: tidalUnderline, justifySelf: 'center'}}>Tidal</h4></div>
         </div>
+      </div>
+      <div className='bodyContainer' style={{width: '80%', marginTop: '-45%', justifyItems: 'center'}}>
         <div>
         <label style={{marginLeft: '5%'}} htmlFor='sort'>Sort By:</label>
         <select id='sort' value={sorted} onChange={(e) => handleChange(e.target.value)}>
@@ -421,7 +563,75 @@ function App() {
         </select>
         </div>
         {creditsMap};
-          {/* <img src={mason} className='mason' alt='mason'></img> */}
+        
+      </div>
+    </div>
+    )
+  }
+  function CreditsMobile() {
+    return (
+
+      <div className='container'>
+      <div className='headerContainer'>
+      <div className='line1'></div>
+      <img src={masonstoops} className='masonStoops' alt='Mason Stoops' onClick={goHome}/>
+      <div className='line2'></div>
+      <div className='skewedCircle'>
+        <img src={gumby} className='gumby' alt='gumby'/>
+      </div>
+      <div className='line3'></div>
+      <div className='subContainer'>
+          <h6>PRODUCT OF ORANGE COUNTY CAL., SESSION AND TOURING GUITARIST</h6>
+        </div>
+        
+        <div style={{height: '70px'}} className='optionContainer'>
+          
+        <div style={{marginTop: '22px', cursor: 'pointer'}} className='thlContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl1'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl2'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl3'></div>
+        </div>
+        </div>
+        <div style={{marginTop: '100px'}} className='streamingContainer'>
+        <div className='spotify' onClick={handleStreamingService}><h4 style={{textDecoration: spotifyUnderline, justifySelf: 'center'}}>Spotify</h4></div> 
+        <div className='appleMusic' onClick={handleStreamingService}><h4 style={{textDecoration: appleMusicUnderline, justifySelf: 'center'}}>Apple Music</h4></div>
+        <div className='tidal' onClick={handleStreamingService}><h4 style={{textDecoration: tidalUnderline, justifySelf: 'center'}}>Tidal</h4></div>
+        </div>
+      </div>
+      <div style={{width: '80%', marginLeft: '2%', marginTop: '-240px', justifyContent: 'center', }} className='bodyContainer'>
+        {/* <label style={{marginLeft: '5%'}} htmlFor='sort'>Sort By:</label> */}
+        <select style={{width: '65%', marginLeft: '18%'}} id='sort' value={sorted} onChange={(e) => handleChange(e.target.value)}>
+          <option value='artist'>Artist</option>
+          <option value='album'>Album</option>
+          <option value='label'>Record Label</option>
+          <option value='year(oldestToNewest)'>Year (Oldest to Most Recent)</option>
+          <option value='year(newestToOldest)'>Year (Most Recent to Oldest)</option>
+        </select>
+        {creditsMap};
+          <div className={`sidebar ${sidebarIsOpen ? 'open' : ''}`}>
+          <div style={{height: '70px', marginLeft: '84%', marginTop: '-445px'}} className='menuXContainer'>
+          <div style={{marginTop: '33px', cursor: 'pointer'}} className='xContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '10px 0'}} className='x1'></div>
+          {/* <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '6px 0'}} className='thl2'></div> */}
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '-15px 0'}} className='x3'></div>
+        </div>
+        </div>
+        <div style={{width: '100%', justifyItems: 'center'}}>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>HOME</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>ABOUT</h1> 
+          <h1 style={{textDecoration: 'underline', color: '#282224'}} onClick={handleClick}>CREDITS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>VIDEOS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CONTACT</h1>
+          <a href='https://www.instagram.com/masonstoops/'>
+          <div className='instaLogoContainer'>
+            <div style={{border: '2px solid #282224'}}  className='instaLogoOuter'>
+              <div style={{border: '2px solid #282224', marginLeft: '65%', marginTop: '5%'}}  className='instaLogoDot'></div>
+              <div style={{border: '2px solid #282224', marginTop: '-5%'}}  className='instaLogoInner'></div>
+            </div>
+          </div>
+          </a>
+          </div>
+        </div>
       </div>
     </div>
     )
@@ -461,6 +671,63 @@ function App() {
           {videosMap};
         </div>
           {/* <img src={mason} className='mason' alt='mason'></img> */}
+      </div>
+    </div>
+    )
+  }
+  function VideosMobile() {
+    return (
+
+      <div className='container'>
+      <div className='headerContainer'>
+      <div className='line1'></div>
+      <img src={masonstoops} className='masonStoops' alt='Mason Stoops' onClick={goHome}/>
+      <div className='line2'></div>
+      <div className='skewedCircle'>
+        <img src={gumby} className='gumby' alt='gumby'/>
+      </div>
+      <div className='line3'></div>
+      <div className='subContainer'>
+          <h6>PRODUCT OF ORANGE COUNTY CAL., SESSION AND TOURING GUITARIST</h6>
+        </div>
+        
+        <div style={{height: '70px'}} className='optionContainer'>
+          
+        <div style={{marginTop: '22px', cursor: 'pointer'}} className='thlContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl1'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl2'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl3'></div>
+        </div>
+        </div>
+      </div>
+      <div className='bodyContainer'>
+      <div className='videContainer'>
+          {videosMap};
+        </div>
+          <div className={`sidebar ${sidebarIsOpen ? 'open' : ''}`}>
+          <div style={{height: '70px', marginLeft: '84%', marginTop: '-445px'}} className='menuXContainer'>
+          <div style={{marginTop: '33px', cursor: 'pointer'}} className='xContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '10px 0'}} className='x1'></div>
+          {/* <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '6px 0'}} className='thl2'></div> */}
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '-15px 0'}} className='x3'></div>
+        </div>
+        </div>
+        <div style={{width: '100%', justifyItems: 'center'}}>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>HOME</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>ABOUT</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CREDITS</h1>
+          <h1 style={{textDecoration: 'underline', color: '#282224'}} onClick={handleClick}>VIDEOS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CONTACT</h1>
+          <a href='https://www.instagram.com/masonstoops/'>
+          <div className='instaLogoContainer'>
+            <div style={{border: '2px solid #282224'}}  className='instaLogoOuter'>
+              <div style={{border: '2px solid #282224', marginLeft: '65%', marginTop: '5%'}}  className='instaLogoDot'></div>
+              <div style={{border: '2px solid #282224', marginTop: '-5%'}}  className='instaLogoInner'></div>
+            </div>
+          </div>
+          </a>
+          </div>
+        </div>
       </div>
     </div>
     )
@@ -516,17 +783,98 @@ function App() {
     </div>
     )
   }
+  function ContactMobile() {
+    return (
+
+      <div className='container'>
+      <div className='headerContainer'>
+      <div className='line1'></div>
+      <img src={masonstoops} className='masonStoops' alt='Mason Stoops' onClick={goHome}/>
+      <div className='line2'></div>
+      <div className='skewedCircle'>
+        <img src={gumby} className='gumby' alt='gumby'/>
+      </div>
+      <div className='line3'></div>
+      <div className='subContainer'>
+          <h6>PRODUCT OF ORANGE COUNTY CAL., SESSION AND TOURING GUITARIST</h6>
+        </div>
+        
+        <div style={{height: '70px'}} className='optionContainer'>
+          
+        <div style={{marginTop: '22px', cursor: 'pointer'}} className='thlContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl1'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl2'></div>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#f6ecd6', margin: '6px 0'}} className='thl3'></div>
+        </div>
+        </div>
+      </div>
+      <div className='bodyContainer'>
+      <div className='contactContainer'>
+            <form>
+              <h1>Contact</h1>
+              <div style={{width: '50%', justifySelf: 'center'}}>
+              <p>Get in touch with Mason to schedule a session, or for any other inquiries.</p>
+              </div>
+              <label htmlFor='firstName'>First Name:</label>
+              <input type='text' id='firstName'></input> <br></br>
+              <label htmlFor='lastName'>Last Name:</label>
+              <input type='text' id='lastName'></input> <br></br>
+              <label htmlFor='Email'>Email:</label>
+              <input type='text' id='email'></input> <br></br>
+              <label htmlFor='message'>Message:</label>
+              <input type='text' id='message' style={{padding: '20%'}}></input> <br></br>
+            </form>
+        </div>
+          <div className={`sidebar ${sidebarIsOpen ? 'open' : ''}`}>
+          <div style={{height: '70px', marginLeft: '84%', marginTop: '-445px'}} className='menuXContainer'>
+          <div style={{marginTop: '33px', cursor: 'pointer'}} className='xContainer' onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '10px 0'}} className='x1'></div>
+          {/* <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '6px 0'}} className='thl2'></div> */}
+          <div style={{width: '35px', height: '5px', backgroundColor: '#282224', margin: '-15px 0'}} className='x3'></div>
+        </div>
+        </div>
+        <div style={{width: '100%', justifyItems: 'center'}}>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>HOME</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>ABOUT</h1> 
+          <h1 style={{color: '#282224'}} onClick={handleClick}>CREDITS</h1>
+          <h1 style={{color: '#282224'}} onClick={handleClick}>VIDEOS</h1>
+          <h1 style={{textDecoration: 'underline', color: '#282224'}} onClick={handleClick}>CONTACT</h1>
+          <a href='https://www.instagram.com/masonstoops/'>
+          <div className='instaLogoContainer'>
+            <div style={{border: '2px solid #282224'}}  className='instaLogoOuter'>
+              <div style={{border: '2px solid #282224', marginLeft: '65%', marginTop: '5%'}}  className='instaLogoDot'></div>
+              <div style={{border: '2px solid #282224', marginTop: '-5%'}}  className='instaLogoInner'></div>
+            </div>
+          </div>
+          </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    )
+  }
+  
  
-  if (isPressed === 'home') {
+  if (isPressed === 'home' && screenSize.width > 768) {
     return <Home></Home>
-  } else if (isPressed === 'about') {
+  } else if (isPressed === 'home' && screenSize.width <= 768) {
+    return <HomeMobile></HomeMobile>
+  } else if (isPressed === 'about' && screenSize.width > 768) {
     return <About></About>
-  } else if (isPressed === 'credits') {
+  } else if (isPressed === 'about' && screenSize.width <= 768) {
+    return <AboutMobile></AboutMobile>
+  } else if (isPressed === 'credits' && screenSize.width > 768) {
     return <Credits></Credits>
-  } else if (isPressed === 'videos') {
+  } else if (isPressed === 'credits' && screenSize.width <= 768) {
+    return <CreditsMobile></CreditsMobile>
+  } else if (isPressed === 'videos' && screenSize.width > 768) {
     return <Videos></Videos>
-  } else if (isPressed === 'contact') {
+  } else if (isPressed === 'videos' && screenSize.width <= 768) {
+    return <VideosMobile></VideosMobile>
+  } else if (isPressed === 'contact' && screenSize.width > 768) {
     return <Contact></Contact>
+  } else if (isPressed === 'contact' && screenSize.width <= 768) {
+    return <ContactMobile></ContactMobile>
   }
 }
 
